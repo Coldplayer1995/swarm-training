@@ -1,4 +1,4 @@
-version: "3"
+version: "3.1"
 services:
 
   redis:
@@ -23,7 +23,9 @@ services:
       - backend
     deploy:
       placement:
-        constraints: [node.role == manager]
+        constraints: 
+          - node.labels.ssd == true
+
   vote:
     image: dockersamples/examplevotingapp_vote:before
     ports:
@@ -38,6 +40,9 @@ services:
         parallelism: 2
       restart_policy:
         condition: on-failure
+      placement:
+        constraints: [node.role == worker]
+    
   result:
     image: dockersamples/examplevotingapp_result:before
     ports:
@@ -63,16 +68,9 @@ services:
       - db
       - redis
     deploy:
-      mode: replicated
       replicas: 1
-      labels: [APP=VOTING]
-      restart_policy:
-        condition: on-failure
-        delay: 10s
-        max_attempts: 3
-        window: 120s
       placement:
-        constraints: [node.role == manager]
+        constraints: [node.role == worker]
 
   visualizer:
     image: dockersamples/visualizer:stable
