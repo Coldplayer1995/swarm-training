@@ -1,0 +1,41 @@
+version: "3.1"
+services:
+
+  giri-marketing-api:
+    image: girii/marketingportalapi:20210310.1
+    ports:
+      - 443651:443651
+    networks:
+      - backend
+  giri-multimedia-api:
+    image: postgres:9.4
+    ports:
+      - 443650:443650
+    networks:
+      - backend
+    deploy:
+      placement:
+        constraints: 
+          - node.labels.ssd == true
+
+  giri-marketing-client:
+    image: dockersamples/examplevotingapp_vote:before
+    ports:
+      - 4200:4200
+    networks:
+      - frontend
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8080:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  frontend:
+  backend:
