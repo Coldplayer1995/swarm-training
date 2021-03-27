@@ -1,25 +1,24 @@
 version: "3.1"
 services:
-
   giri-marketing-api:
-    image: girii/marketingportalapi:20210310.1
+    image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/marketingportalapi:20210310.1
     ports:
-      - 443651:443651
+      - 21000:80
     networks:
       - backend
-  # giri-multimedia-api:
-  #   image: girii/multimediaapi:20210310.1
-  #   ports:
-  #     - 443650:443650
-  #   networks:
-  #     - backend
+  giri-multimedia-api:
+    image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/multimediaapi:20210310.1
+    ports:
+      - 21001:80
+    networks:
+      - backend
 
-  # giri-marketing-client:
-  #   image: girii/marketingportalclient:20210309.10
-  #   ports:
-  #     - 4200:4200
-  #   networks:
-  #     - frontend
+  giri-marketing-client:
+    image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/marketingportalclient:20210309.10
+    ports:
+      - 4200:80
+    networks:
+      - frontend
 
   visualizer:
     image: dockersamples/visualizer:stable
