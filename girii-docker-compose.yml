@@ -11,22 +11,22 @@ services:
         target: /app/appsettings.json
     depends_on:
       - backend
-  # giri-multimedia-api:
-  #   image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/multimediaapi:20210330.9
-  #   ports:
-  #     - 21001:80
-  #   networks:
-  #     - backend
-  #   depends_on:
-  #     - backend
-  # giri-marketing-client:
-  #   image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/marketingportalclient:20210309.10
-  #   ports:
-  #     - 4200:80
-  #   networks:
-  #     - frontend
-  #   depends_on:
-  #     - frontend
+  giri-multimedia-api:
+    image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/multimediaapi:20210330.9
+    ports:
+      - 21001:80
+    networks:
+      - backend
+    depends_on:
+      - backend
+  giri-marketing-client:
+    image: 736483926068.dkr.ecr.eu-west-2.amazonaws.com/girii/marketingportalclient:20210309.10
+    ports:
+      - 4200:80
+    networks:
+      - frontend
+    depends_on:
+      - frontend
   visualizer:
     image: dockersamples/visualizer:stable
     ports:
